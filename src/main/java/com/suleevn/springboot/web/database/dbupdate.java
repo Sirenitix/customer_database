@@ -14,16 +14,17 @@ public class dbupdate {
         String jdbcUrl = "jdbc:mysql://localhost:3307/person_contacts";
         String username = "root";
         String password = "";
-        String sql = "update person_contacts set name=? where id=?";
+        String setnamesql = "update person_contacts set name=?, number=? where id=?";
+        String setnumbersql = "update person_contacts set number=? where id=?";
 
         try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password);
-             PreparedStatement stmt = conn.prepareStatement(sql);) {
+             PreparedStatement stmt = conn.prepareStatement(setnamesql);) {
             stmt.setString(1, nmupd);
-            stmt.setInt(2, idupd);
+            stmt.setInt(3, idupd);
+            stmt.setString(2, nbupd);
 
             stmt.executeUpdate();
 
-            System.out.println("Database updated successfully ");
         } catch (SQLException e) {
             e.printStackTrace();
         }
